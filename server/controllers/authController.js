@@ -9,7 +9,7 @@ const generateToken = (res, userId) => {
   res.cookie('jwt', token, {
     httpOnly: true,
     secure: process.env.NODE_ENV !== 'development', // Use secure cookies in production
-    sameSite: 'strict', // Prevent CSRF attacks
+    sameSite: process.env.NODE_ENV !== 'development' ? 'none' : 'strict', // 'none' for cross-site/cross-subdomain
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
   });
 };
@@ -72,6 +72,8 @@ const logoutUser = (req, res) => {
   res.cookie('jwt', '', {
     httpOnly: true,
     expires: new Date(0),
+    secure: process.env.NODE_ENV !== 'development',
+    sameSite: process.env.NODE_ENV !== 'development' ? 'none' : 'strict',
   });
   res.status(200).json({ message: 'Logged out' });
 };
