@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 import io from 'socket.io-client';
 import { useAuth } from './AuthContext';
 import toast from 'react-hot-toast';
@@ -16,7 +16,7 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (user) {
-      const newSocket = io('http://localhost:5001', {
+      const newSocket = io(API_URL, {
         withCredentials: true,
       });
 
@@ -55,7 +55,7 @@ export const SocketProvider = ({ children }) => {
 
   const fetchNotifications = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5001/api/notifications');
+      const { data } = await axios.get(`${API_URL}/api/notifications`);
       setNotifications(data);
       setUnreadCount(data.filter((n) => !n.isRead).length);
     } catch (error) {
@@ -65,7 +65,7 @@ export const SocketProvider = ({ children }) => {
 
   const markAsRead = async (id) => {
     try {
-        await axios.patch(`http://localhost:5001/api/notifications/${id}/read`);
+        await axios.patch(`${API_URL}/api/notifications/${id}/read`);
         setNotifications(prev => prev.map(n => n._id === id ? { ...n, isRead: true } : n));
         setUnreadCount(prev => Math.max(0, prev - 1));
     } catch (error) {

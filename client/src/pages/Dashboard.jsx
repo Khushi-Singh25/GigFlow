@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { LayoutGrid, Briefcase, CheckCircle, Clock, Award } from 'lucide-react';
@@ -17,7 +17,7 @@ const Dashboard = () => {
   const fetchDashboardData = async (filter) => {
     setLoading(true);
     try {
-      const { data } = await axios.get(`http://localhost:5001/api/users/dashboard?filter=${filter}`);
+      const { data } = await axios.get(`${API_URL}/api/users/dashboard?filter=${filter}`);
       setStats(data.stats);
       setListData(data.listData);
     } catch (error) {
@@ -31,7 +31,7 @@ const Dashboard = () => {
       if(!window.confirm("Are you sure you want to mark this job as completed?")) return;
 
       try {
-          await axios.patch(`http://localhost:5001/api/bids/${bidId}/complete`);
+          await axios.patch(`${API_URL}/api/bids/${bidId}/complete`);
           toast.success("Job marked as completed!");
           fetchDashboardData(currentFilter); // Refresh data
       } catch (error) {

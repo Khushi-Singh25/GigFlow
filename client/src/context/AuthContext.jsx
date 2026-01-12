@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext } from 'react';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 import axios from 'axios';
 
 const AuthContext = createContext();
@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
 
   const checkUserLoggedIn = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5001/api/auth/profile');
+      const { data } = await axios.get(`${API_URL}/api/auth/profile`);
       setUser(data);
     } catch (error) {
       setUser(null);
@@ -25,19 +25,19 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (email, password) => {
-    const { data } = await axios.post('http://localhost:5001/api/auth/login', { email, password });
+    const { data } = await axios.post(`${API_URL}/api/auth/login`, { email, password });
     setUser(data);
     return data;
   };
 
   const register = async (name, email, password) => {
-    const { data } = await axios.post('http://localhost:5001/api/auth/register', { name, email, password });
+    const { data } = await axios.post(`${API_URL}/api/auth/register`, { name, email, password });
     setUser(data);
     return data;
   };
 
   const logout = async () => {
-    await axios.post('http://localhost:5001/api/auth/logout');
+    await axios.post(`${API_URL}/api/auth/logout`);
     setUser(null);
   };
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Clock, PlusCircle } from 'lucide-react';
@@ -12,7 +12,7 @@ const MyGigs = () => {
 
   const fetchMyGigs = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5001/api/gigs/my-gigs');
+      const { data } = await axios.get(`${API_URL}/api/gigs/my-gigs`);
       setGigs(data);
     } catch (error) {
       console.error(error);

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Search, Filter, IndianRupee, Clock, ArrowUpRight } from 'lucide-react';
@@ -34,7 +34,7 @@ const Home = () => {
         status
       });
 
-      const { data } = await axios.get(`http://localhost:5001/api/gigs?${params}`);
+      const { data } = await axios.get(`${API_URL}/api/gigs?${params}`);
       setGigs(data);
     } catch (error) {
       console.error(error);

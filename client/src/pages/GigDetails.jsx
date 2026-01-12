@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
@@ -27,7 +27,7 @@ const GigDetails = () => {
 
   const fetchGigDetails = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:5001/api/gigs/${id}`);
+      const { data } = await axios.get(`${API_URL}/api/gigs/${id}`);
       setGig(data);
     } catch (error) {
       toast.error('Failed to load gig details');
@@ -39,7 +39,7 @@ const GigDetails = () => {
 
   const fetchBids = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:5001/api/bids/${id}`);
+      const { data } = await axios.get(`${API_URL}/api/bids/${id}`);
       setBids(data);
     } catch (error) {
       console.error('Failed to load bids');
@@ -49,7 +49,7 @@ const GigDetails = () => {
   const handleBidSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5001/api/bids', {
+      await axios.post(`${API_URL}/api/bids`, {
         gigId: id,
         message: bidMessage,
         price: bidPrice,
@@ -66,7 +66,7 @@ const GigDetails = () => {
     if (!window.confirm('Are you sure you want to hire this freelancer? This action cannot be undone.')) return;
     
     try {
-      await axios.patch(`http://localhost:5001/api/bids/${bidId}/hire`);
+      await axios.patch(`${API_URL}/api/bids/${bidId}/hire`);
       toast.success('Freelancer hired successfully!');
       fetchGigDetails();
       fetchBids();
