@@ -1,9 +1,9 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { LayoutGrid, Briefcase, CheckCircle, Clock, Award } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { API_URL } from '../config';
 
 const Dashboard = () => {
   const [stats, setStats] = useState(null);

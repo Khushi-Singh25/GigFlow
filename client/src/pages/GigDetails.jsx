@@ -1,10 +1,10 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import { IndianRupee, Clock, User, CheckCircle, AlertCircle, ArrowLeft } from 'lucide-react';
+import { API_URL } from '../config';
 
 const GigDetails = () => {
   const { id } = useParams();
