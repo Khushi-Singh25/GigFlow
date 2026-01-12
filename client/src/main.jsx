@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
       <SocketProvider>
-        <App />
+    <App />
         <Toaster position="top-center" reverseOrder={false} />
       </SocketProvider>
     </AuthProvider>
